@@ -1,7 +1,32 @@
+using FluentAssertions.Common;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
+//auth servisi benim eklediðim
+builder.Services.AddMvc(config =>
+{
+    var policy = new AuthorizationPolicyBuilder()
+					.RequireAuthenticatedUser()
+					.Build();
+config.Filters.Add(new AuthorizeFilter(policy));
+});
+
+
+
+builder.Services.AddSession();
+
+builder.Services.AddMvc();
+//Auth olmadan yaptýðým iþlemlerde beni login urle geri döndürmesi için eklediðim metot
+builder.Services.AddAuthentication(
+    CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(x => { x.LoginPath = "/Login/Index"; }
+    );
 
 var app = builder.Build();
 
@@ -12,9 +37,15 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+app.UseStatusCodePagesWithReExecute("/ErrorPage/Error1", "?code={0}");
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+app.UseAuthentication();
+
+app.UseSession();
 
 app.UseRouting();
 

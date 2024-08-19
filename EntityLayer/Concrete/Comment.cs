@@ -12,10 +12,10 @@ namespace EntityLayer.Concrete
         [Key]
         public int CommentID {  get; set; }
 
-        public string CommentUserName {  get; set; }
+        public string? CommentUserName {  get; set; }
 
-        public string CommentTitle { get; set; }
-        public string CommentContent {  get; set; }
+        public string? CommentTitle { get; set; }
+        public string? CommentContent {  get; set; }
 
         public DateTime CommentDate { get; set; }
 
@@ -23,7 +23,7 @@ namespace EntityLayer.Concrete
 
         public int BlogID {  get; set; }
 
-        public Blog Blog { get; set; }
+        public Blog? Blog { get; set; }
 
 
     }
