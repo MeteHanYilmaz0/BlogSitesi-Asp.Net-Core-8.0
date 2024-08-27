@@ -2,6 +2,7 @@ using FluentAssertions.Common;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.Data.SqlClient;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -51,8 +52,30 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+
+app.MapControllerRoute(
+  name: "Admin",
+  pattern: "{area:exists}/{controller=Category}/{action=Index}/{id?}");
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
+
+
+//app.MapControllerRoute(
+//   name: "areas",
+//  pattern: "{area:exists}/{controller=Category}/{action=Index}/{id?}");
+
+
+//app.UseEndpoints(endpoints =>
+//{
+//  endpoints.MapControllerRoute(
+//     name: "areas",
+//     pattern: "{area:exists}/{controller=Category}/{action=Index}/{id?}"
+//    );
+//});
+
 
 app.Run();

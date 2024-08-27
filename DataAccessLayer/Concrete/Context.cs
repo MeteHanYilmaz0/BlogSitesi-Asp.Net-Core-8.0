@@ -1,4 +1,4 @@
-﻿using EntityLayer.Concrete;
+﻿    using EntityLayer.Concrete;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -15,6 +15,30 @@ namespace DataAccessLayer.Concrete
             optionsBuilder.UseSqlServer("server=METE;database=CoreBlogDb;integrated security=true;TrustServerCertificate=True");
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Match>().HasOne(x => x.HomeTeam)
+                .WithMany(y => y.HomeMatches)
+                .HasForeignKey(z => z.HomeTeamID)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            modelBuilder.Entity<Match>().HasOne(x => x.GuestTeam)
+                .WithMany(y => y.AwayMatches)
+                .HasForeignKey(z => z.GuestTeamID)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            //homematches-->Writersender
+            //awaymatches-->writerreceiver
+
+            //home team--<senderuser
+            //guest team-->receiveruser
+
+            modelBuilder.Entity<Message2>().HasOne(x=>x.SenderUser).WithMany(y=>y.WriterSender)
+                .HasForeignKey(z=>z.SenderID).OnDelete(DeleteBehavior.ClientSetNull);
+
+            modelBuilder.Entity<Message2>().HasOne(x => x.ReceiverUser).WithMany(y => y.WriterReceiver)
+                .HasForeignKey(z => z.ReceiverID).OnDelete(DeleteBehavior.ClientSetNull);
+        }
         public DbSet<About> Abouts { get; set; }
 
         public DbSet<Blog> Blogs { get; set; }
@@ -29,7 +53,19 @@ namespace DataAccessLayer.Concrete
 
         public DbSet<NewsLetter> NewsLetters { get; set; }
 
+        public DbSet<BlogRating> BlogRatings { get; set; }
 
+        public DbSet<Notification> Notifications { get; set; }
+
+
+        public DbSet<Message> Messages { get; set; }
+
+
+        public DbSet<Team> Teams { get; set; }
+        public DbSet<Match> Matches { get; set; }
+
+
+        public DbSet<Message2> Message2s { get; set; }
 
     }
 }
