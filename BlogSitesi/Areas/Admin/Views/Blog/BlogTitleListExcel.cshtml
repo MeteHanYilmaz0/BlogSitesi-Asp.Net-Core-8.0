@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "BlogTitleListExcel";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+<h2>Excel Listesi olarak Blogları indirin.</h2>
+<button class="btn btn-primary" onclick="DownloadExcelBlogList()">Excel Listesini indir</button>
+
+<script>
+    function DownloadExcelBlogList() {
+        window.open("/Admin/Blog/ExportDinamicExcelBlogList");
+
+        // İndirme başarılı olduktan sonra SweetAlert ile mesaj göster
+        Swal.fire({
+            icon: 'success',
+            title: 'İndirme Başarılı',
+            text: 'Excel dosyanız başarıyla indirildi!'
+        });
+    };
+</script>
