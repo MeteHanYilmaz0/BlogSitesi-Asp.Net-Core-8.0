@@ -53,6 +53,11 @@ app.UseRouting();
 app.UseAuthorization();
 
 
+//app.MapControllerRoute(
+//    name: "Admin",
+//    pattern: "{area:exists}/{controller=Chart}/{action=CategoryChart}/{id?}");
+
+
 app.MapControllerRoute(
   name: "Admin",
   pattern: "{area:exists}/{controller=Category}/{action=Index}/{id?}");
