@@ -1,11 +1,13 @@
 ﻿using BlogSitesi.Areas.Admin.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 namespace BlogSitesi.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class WriterController : Controller
+	[AllowAnonymous]
+	public class WriterController : Controller
     {
         public IActionResult Index()
         {

@@ -3,10 +3,12 @@ using BusinessLayer.ValidationRules;
 using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using FluentValidation.Results;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 namespace BlogSitesi.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [AllowAnonymous]
     public class CategoryController : Controller
        
     {

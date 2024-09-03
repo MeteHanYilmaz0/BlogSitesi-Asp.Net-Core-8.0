@@ -1,4 +1,5 @@
 ﻿using BlogSitesi.Areas.Admin.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogSitesi.Areas.Admin.Controllers
@@ -6,6 +7,7 @@ namespace BlogSitesi.Areas.Admin.Controllers
     public class ChartController : Controller
     {
         [Area("Admin")]
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();

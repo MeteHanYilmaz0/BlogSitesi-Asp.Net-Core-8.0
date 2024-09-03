@@ -1,13 +1,16 @@
-﻿using DataAccessLayer.Concrete;
+﻿using BlogSitesi.Models;
+using DataAccessLayer.Concrete;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 using System.Security.Claims;
 
 namespace BlogSitesi.Controllers
 {
-	public class LoginController : Controller
+    [AllowAnonymous]
+    public class LoginController : Controller
 	{
 		[AllowAnonymous]
 		public IActionResult Index()
@@ -15,7 +18,7 @@ namespace BlogSitesi.Controllers
 			return View();
 		}
 		[HttpPost]
-		[AllowAnonymous]
+		
 		public async Task<IActionResult> Index(Writer p)
 		{
 			Context c=new Context();
@@ -30,7 +33,7 @@ namespace BlogSitesi.Controllers
 				ClaimsPrincipal principal = new ClaimsPrincipal(useridentity);
 				await HttpContext.SignInAsync(principal);
 
-				return RedirectToAction("Index","Dashboard");
+				return RedirectToAction("Index","DashBoard");
 			}
 			else
 			{
@@ -38,7 +41,11 @@ namespace BlogSitesi.Controllers
 			}
 		}
 
-
+		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+		public IActionResult Error()
+		{
+			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+		}
 	}
 }
 

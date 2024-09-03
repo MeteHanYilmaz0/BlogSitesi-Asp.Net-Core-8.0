@@ -6,7 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlogSitesi.Controllers
 {
-    public class DashBoardController : Controller
+
+	[AllowAnonymous]
+	public class DashBoardController : Controller
     {
         BlogManager bm=new BlogManager(new EfBlogRepository());
        

@@ -10,15 +10,15 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BlogSitesi.Controllers
 {
-   
 
+	[AllowAnonymous]
 
-    public class BlogController : Controller
+	public class BlogController : Controller
     {
         CategoryManager cm = new CategoryManager(new EfCategoryRepository());
         BlogManager bm = new BlogManager(new EfBlogRepository());
         Context c = new Context();
-        [AllowAnonymous]
+      
         public IActionResult Index()
         {
             var values = bm.GetBlogListWithCategory();
